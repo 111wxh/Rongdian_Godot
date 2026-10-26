@@ -126,10 +126,34 @@ godot --headless res://intro_test.tscn    # 开场链路：真实按键模拟 W�
 godot --headless res://control_test.tscn  # 控制项：视角输入/面板拦截/下蹲/提示对比色/进屋/睡床
 godot --headless res://reload_test.tscn   # 重载时序：F9 读档→旧 HUD 释放→持续通知（防 freed instance）
 godot --headless res://content_test.tscn  # 内容：NPC/生物碰撞体与交互/路面/房屋/手部视图模型/拢雪
-godot --headless res://systems_test.tscn  # 数值系统：热引擎tick/灾难λ/技能学习/建筑成本/证据吻合度/三结局（写 D:/projeot/融点/systems_log.txt）
+godot --headless res://systems_test.tscn  # 数值系统：热引擎tick/灾难λ/技能学习/建筑成本/证据吻合度/三结局（诊断写 user://systems_log.txt）
 ```
 
-## 九、已知边界（原型取舍）
+> **注意**：这些测试会写 `user://`（Windows 上是 `%APPDATA%\Godot\app_userdata\融点 RONGDIAN\`）。如果运行环境禁止写用户目录，`smoke_test` 的「存档」一项会假失败（exit 1 但代码本身没问题）。系统的诊断日志在 `user://systems_log.txt`，跑完可用 `.\debug.ps1 userdata` 直接打开该目录。
+
+## 九、开发速查（debug.ps1）
+
+仓库根目录的 [`debug.ps1`](debug.ps1) 把常用操作收成了一条命令（需要 PowerShell 7）。它会自己找 Godot，**不必把 Godot 加进 PATH**：
+
+```powershell
+.\debug.ps1 run                        # 直接开游戏窗口
+.\debug.ps1 editor                     # 用 Godot 编辑器打开工程（断点/单步调试走这条）
+.\debug.ps1 test                       # 依次跑上面 6 个测试并汇总 PASS/FAIL（失败退出码 1）
+.\debug.ps1 test smoke                 # 只跑名字里含 smoke 的
+.\debug.ps1 shot -Only 01,08 -NoHud    # 截图到 tools/shots/（13 个预设机位）
+.\debug.ps1 probe probe8               # 跑 tools/probe8.tscn 这类数值探针
+.\debug.ps1 scene Main                 # 无头跑任意场景
+.\debug.ps1 userdata                   # 打开 user:// 目录（存档、日志）
+.\debug.ps1 where                      # 只打印探测到的 Godot 版本与路径
+```
+
+探测顺序：`$env:GODOT_BIN` / `$env:GODOT4_BIN` → PATH 里的 `godot` → `D:\WorkSpace`、`D:\Godot`、`C:\Program Files` 等常见根目录下的 `Godot*` 目录。找不到或装在不常见的位置，就设一次环境变量：
+
+```powershell
+$env:GODOT_BIN = 'D:\Godot\Godot_v4.7-stable_win64.exe\Godot_v4.7-stable_win64.exe'
+```
+
+## 十、已知边界（原型取舍）
 
 - 无音频（无外部素材依赖，全部程序化生成与代码绘制）。
 - 生物为简单游荡/逃逸 AI；捕猎是一次了结的交互，不做血条与战斗。

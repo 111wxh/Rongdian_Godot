@@ -3,7 +3,7 @@ extends Node
 ## 覆盖：热引擎 tick / 灾难泊松 λ（季节表）/ 技能学习 / 建筑成本 / 证据吻合度 / 三结局分支
 ## 诊断写到文件（headless 的 stdout 在 await 边界会被截断），路径见 LOG_PATH。
 
-const LOG_PATH := "D:/projeot/融点/systems_log.txt"
+const LOG_PATH := "user://systems_log.txt"
 var _log_lines: Array = []
 var _done := false
 var fails: Array = []
@@ -17,6 +17,10 @@ func _dump() -> void:
 	if f:
 		f.store_string("\n".join(_log_lines) + "\n")
 		f.close()
+		print("（诊断日志已写入 ", ProjectSettings.globalize_path(LOG_PATH), "）")
+	else:
+		# 写不出来时至少说一声，不要像以前那样静默丢弃
+		push_warning("诊断日志写入失败：%s（错误 %d）" % [LOG_PATH, FileAccess.get_open_error()])
 
 func _ready() -> void:
 	if _done:
