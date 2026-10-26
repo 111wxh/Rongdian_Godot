@@ -1,0 +1,24 @@
+# 统一换行：仓库内存 LF，任何平台检出都是 LF，避免 Windows/macOS 的 CRLF 噪声 diff
+* text=auto eol=lf
+
+# 明确是二进制、不做换行与文本合并处理的格式
+*.glb        binary
+*.gltf       binary
+*.png        binary
+*.jpg        binary
+*.jpeg       binary
+*.webp       binary
+*.ogg        binary
+*.wav        binary
+*.ttf        binary
+*.otf        binary
+*.zip        binary
+
+# Godot 文本资源：显式标记，防止被误判为二进制而不显示 diff
+*.tscn       text eol=lf
+*.tres       text eol=lf
+*.gd         text eol=lf
+*.gdshader   text eol=lf
+*.gdshaderinc text eol=lf
+*.godot      text eol=lf
+*.import     text eol=lf
