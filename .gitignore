@@ -1,0 +1,24 @@
+# Godot 自动重建的导入缓存（删了会自动重建，不必提交）
+.godot/
+
+# 导出产物
+/build/
+/export/
+*.exe
+*.pck
+
+# Python 字节码
+__pycache__/
+*.pyc
+
+# 开发期截图产物（重新跑 tools/shot.gd 即可生成）
+tools/shots/
+tools/probe/
+tools/probe2/
+
+# 早期版本备份（历史交给 git 本身管理）
+_backup_orig/
+
+# 系统杂项
+.DS_Store
+Thumbs.db
