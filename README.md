@@ -5,11 +5,46 @@
 
 ## 一、运行方式
 
+三种方式任选。**方式一不需要装任何东西**；方式二、三需要本机有 Godot 4.x 引擎（本仓库不含引擎本体）。
+
+### 方式一：直接下载可执行文件（最简单）
+
+到 [Releases](https://github.com/111wxh/Rongdian_Godot/releases) 下载 `Rongdian.exe`，双击即玩。
+
+- 单文件，已内嵌全部资源，无需安装 Godot、无需解压配套的 `.pck`。
+- 需要 Windows 10/11 64 位；纯 GDScript，不需要 .NET 运行时。
+- 首次运行会在 `%APPDATA%\Godot\app_userdata\融点 RONGDIAN\` 建存档目录。
+
+### 方式二：Godot 编辑器
+
 1. 安装 **Godot 4.2 或更新版本**（标准版，.NET 版亦可，本工程为纯 GDScript）。
 2. 打开 Godot → 导入 → 选择本目录下的 `project.godot` → 导入并打开。
 3. 按 **F5**（或右上角运行按钮）即可开始游戏。
-4. 中文字体：由 autoload `InputSetup` 在启动时向 `ThemeDB.fallback_font` 注入系统中文字体
-   （微软雅黑/黑体/Noto Sans CJK，Windows 与 macOS 均自动适配），无需任何外部字体文件。
+
+### 方式三：命令行 / 脚本
+
+装了 Godot 之后，不想点界面可以用仓库里的 `debug.ps1`（需要 PowerShell 7，会自动寻找已安装的 Godot）：
+
+```powershell
+.\debug.ps1 run        # 开游戏窗口
+.\debug.ps1 editor     # 打开编辑器（断点调试）
+.\debug.ps1 test       # 跑 6 个无头测试
+```
+
+裸命令行等价写法：
+
+```
+<godot> --path .                                    # 直接运行
+<godot> -e --path .                                 # 打开编辑器
+<godot> --headless --path . res://smoke_test.tscn   # 跑单个测试
+```
+
+完整命令见「九、开发速查」。
+
+### 中文字体
+
+由 autoload `InputSetup` 在启动时向 `ThemeDB.fallback_font` 注入系统中文字体
+（微软雅黑/黑体/Noto Sans CJK，Windows 与 macOS 均自动适配），无需任何外部字体文件。
 
 ## 二、操作
 

@@ -19,6 +19,9 @@ tools/probe2/
 # 早期版本备份（历史交给 git 本身管理）
 _backup_orig/
 
+# 本地工具目录（导出模板等大文件，不进仓库）
+/.tools/
+
 # 系统杂项
 .DS_Store
 Thumbs.db
